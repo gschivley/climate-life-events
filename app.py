@@ -12,7 +12,7 @@ df = pd.read_csv(fn)
 # df = pd.read_csv(join('..', 'iamc_db.csv'))
 df['climate'] = df['Scenario'].str.split('-').str[-1]
 climates = df['climate'].unique()
-years = pd.to_datetime(df.columns[5:-1], yearfirst=True)
+years = pd.to_datetime(df.columns[6:-1], yearfirst=True)
 
 fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/GISS_temps.csv'
 hist = pd.read_csv(fn)
@@ -35,10 +35,10 @@ trace = {
 data.append(trace)
 
 for idx, climate in enumerate(climates):
-    # dfs[climate] = df.loc[df['climate'] == climate, '2005':'2100']
+    # dfs[climate] = df.loc[df['climate'] == climate, '2010':'2100']
     trace = {
         'x': years,
-        'y': df.loc[df['climate'] == climate, '2005':'2100'].mean(),
+        'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -51,7 +51,7 @@ for idx, climate in enumerate(climates):
 for idx, climate in enumerate(climates):
     trace = {
         'x': years,
-        'y': df.loc[df['climate'] == climate, '2005':'2100'].min(),
+        'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -64,7 +64,7 @@ for idx, climate in enumerate(climates):
 
     trace = {
         'x': years,
-        'y': df.loc[df['climate'] == climate, '2005':'2100'].max(),
+        'y': df.loc[df['climate'] == climate, '2010':'2100'].max(),
         'type': 'scatter',
         'fill': 'tonexty',
         # 'showlegend': False,
@@ -113,7 +113,7 @@ def update_figure(mother_year, self_year, child_year):
     # y_value = {}
     # for key, year in zip(['mother', 'self', 'child'],
     #                      [mother_year, self_year, child_year]):
-    #     if year < 2005:
+    #     if year < 2010:
     #         y_value[key] =
 
     annotation = [
