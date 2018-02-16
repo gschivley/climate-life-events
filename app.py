@@ -4,23 +4,23 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
-import seaborn as sns
-from os.path import join
+# import seaborn as sns
+# from os.path import join
 
-df = pd.read_csv(join('iamc_db.csv'))
+fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/iamc_db.csv'
+df = pd.read_csv(fn)
 # df = pd.read_csv(join('..', 'iamc_db.csv'))
 df['climate'] = df['Scenario'].str.split('-').str[-1]
 climates = df['climate'].unique()
 years = pd.to_datetime(df.columns[5:-1], yearfirst=True)
 
-fn = 'GISS_temps.csv'
+fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/GISS_temps.csv'
 hist = pd.read_csv(fn)
 hist['datetime'] = pd.to_datetime(hist['datetime'], yearfirst=True)
 
-colors = sns.color_palette('tab10', 5)
-colors = colors.as_hex()
-
-
+# colors = sns.color_palette('tab10', 5)
+# colors = colors.as_hex()
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
 data = []
 trace = {
     'x': hist['datetime'],
