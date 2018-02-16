@@ -162,7 +162,7 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My first grandchild born",
-                "y": 3,
+                "y": 3.5,
                 "x": '{}-01-01'.format(child_year+18+15),
                 "showarrow": True
             }
