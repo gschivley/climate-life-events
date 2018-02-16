@@ -80,6 +80,7 @@ for idx, climate in enumerate(climates):
 
 app = dash.Dash(csrf_protect=False)
 server = app.server
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 
 app.layout = html.Div(children=[
     html.H1(children='Climate change and life events'),
