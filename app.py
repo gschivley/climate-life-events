@@ -78,7 +78,8 @@ for idx, climate in enumerate(climates):
 
 
 
-app = dash.Dash()
+app = dash.Dash(__name__)
+server = app.server
 
 app.layout = html.Div(children=[
     html.H1(children='Climate change and life events'),
