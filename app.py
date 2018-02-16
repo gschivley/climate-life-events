@@ -78,7 +78,7 @@ for idx, climate in enumerate(climates):
 
 
 
-app = dash.Dash()
+app = dash.Dash(csrf_protect=False)
 server = app.server
 
 app.layout = html.Div(children=[
