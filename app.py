@@ -83,37 +83,63 @@ server = app.server
 
 app.layout = html.Div(children=[
     html.H1(children='Climate change and life events'),
-    
+
     html.P([
-    html.Label('Year your mother was born'),
-    dcc.Input(id='mother_birth', value=1952, type='number'),
+        html.Label('Year your mother was born'),
+        dcc.Input(id='mother_birth', value=1952, type='number'),
     ]),
 
     html.P([
-    html.Label('Year you were born'),
-    dcc.Input(id='self_birth', value=1982, type='number'),
+        html.Label('Year you were born'),
+        dcc.Input(id='self_birth', value=1982, type='number'),
     ]),
 
     html.P([
-    html.Label('Year your child was born'),
-    dcc.Input(id='child_birth', value=0, type='number'),
+        html.Label('Year your child was born'),
+        dcc.Input(id='child_birth', value=0, type='number'),
     ]),
 
     html.Div([
-    dcc.Graph(
-        id='example-graph',
-        # figure={
-        #     'data': data,
-        #     'layout': {
-        #         'title': 'Dash Data Visualization',
-        #         'annotations': annotation
-        #     }
-        # }
-    )
-    ],
-    style={'width': '90%', 'margin-right': 'auto', 'margin-left': 'auto'})
-])
+        dcc.Graph(
+            id='example-graph',
+            # figure={
+            #     'data': data,
+            #     'layout': {
+            #         'title': 'Dash Data Visualization',
+            #         'annotations': annotation
+            #     }
+            # }
+        )
+        ],
+        style={'width': '90%', 'margin-right': 'auto', 'margin-left': 'auto'}),
 
+
+        # dcc.Markdown('''
+        # Data from:
+        #
+        # [SSP Public Database (Version 1.1)](https://tntcat.iiasa.ac.at/SspDb)
+        # '''),
+        dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624), who created the figure below.'),
+        html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
+                 style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
+    # html.Div([
+        # dcc.Markdown('''
+        #     Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624), who created the figure below.
+        #
+        #     <img src="https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg" width="200"/>
+        #
+        #     #### Data from:
+        #
+        #     © SSP Public Database (Version 1.1) https://tntcat.iiasa.ac.at/SspDb
+        # ''')
+
+    # ])
+
+
+
+])
+# help(dcc.Markdown)
+# help(html.Img)
 @app.callback(
     dash.dependencies.Output('example-graph', 'figure'),
     [dash.dependencies.Input('mother_birth', 'value'),
