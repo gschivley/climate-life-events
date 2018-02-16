@@ -122,24 +122,8 @@ app.layout = html.Div(children=[
         dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624), who created the figure below.'),
         html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
                  style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
-    # html.Div([
-        # dcc.Markdown('''
-        #     Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624), who created the figure below.
-        #
-        #     <img src="https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg" width="200"/>
-        #
-        #     #### Data from:
-        #
-        #     © SSP Public Database (Version 1.1) https://tntcat.iiasa.ac.at/SspDb
-        # ''')
-
-    # ])
-
-
-
 ])
-# help(dcc.Markdown)
-# help(html.Img)
+
 @app.callback(
     dash.dependencies.Output('example-graph', 'figure'),
     [dash.dependencies.Input('mother_birth', 'value'),
