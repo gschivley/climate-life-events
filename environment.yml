@@ -1,0 +1,19 @@
+name: life-events
+channels:
+- defaults
+- conda-forge
+dependencies:
+- python=3.6
+- matplotlib
+- numpy
+- pandas
+- jupyter
+- seaborn
+- nb_conda_kernels
+
+- pip:
+  - dash
+  - dash-renderer
+  - dash-html-components
+  - dash-core-components
+  - plotly
