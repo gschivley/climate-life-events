@@ -83,15 +83,23 @@ server = app.server
 
 app.layout = html.Div(children=[
     html.H1(children='Climate change and life events'),
-
+    
+    html.P([
     html.Label('Year your mother was born'),
     dcc.Input(id='mother_birth', value=1952, type='number'),
+    ]),
+
+    html.P([
     html.Label('Year you were born'),
     dcc.Input(id='self_birth', value=1982, type='number'),
+    ]),
+
+    html.P([
     html.Label('Year your child was born'),
     dcc.Input(id='child_birth', value=0, type='number'),
-    # help(dcc.Input)
+    ]),
 
+    html.Div([
     dcc.Graph(
         id='example-graph',
         # figure={
@@ -102,6 +110,8 @@ app.layout = html.Div(children=[
         #     }
         # }
     )
+    ],
+    style={'width': '90%', 'margin-right': 'auto', 'margin-left': 'auto'})
 ])
 
 @app.callback(
@@ -174,8 +184,17 @@ def update_figure(mother_year, self_year, child_year):
     figure={
         'data': data,
         'layout': {
-            'title': 'Dash Data Visualization',
-            'annotations': annotation
+            # 'title': 'Dash Data Visualization',
+            'annotations': annotation,
+            'yaxis': {
+                'ticksuffix': '°C',
+                'title': 'Observed & Forecast Temperature Anomaly',
+                'showgrid': False,
+            },
+            "font": {
+                "family": "Roboto",
+                "size": 14
+            }
         }
     }
 
