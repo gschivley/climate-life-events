@@ -5,6 +5,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 import os
+from random import randint
 # import seaborn as sns
 # from os.path import join
 
