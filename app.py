@@ -196,6 +196,7 @@ def update_figure(mother_year, self_year, child_year):
         'layout': {
             # 'title': 'Dash Data Visualization',
             'annotations': annotation,
+            'hovermode': 'closest',
             'yaxis': {
                 'ticksuffix': '°C',
                 'title': 'Observed & Forecast Temperature Anomaly',
