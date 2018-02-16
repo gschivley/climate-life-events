@@ -4,6 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
+import os
 # import seaborn as sns
 # from os.path import join
 
@@ -80,6 +81,7 @@ for idx, climate in enumerate(climates):
 
 app = dash.Dash(csrf_protect=False)
 server = app.server
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 
 app.layout = html.Div(children=[
     html.H1(children='Climate change and life events'),
