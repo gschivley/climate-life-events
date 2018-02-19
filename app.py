@@ -91,18 +91,36 @@ app.layout = html.Div(children=[
 
     html.P([
         html.Label('Year your mother was born'),
-        dcc.Input(id='mother_birth', value=1952, type='number'),
-    ]),
+        # dcc.Input(id='mother_birth', value=1952, type='number'),
+        dcc.Dropdown(
+            id='mother_birth',
+            options=[{'label': i, 'value':i} for i in range(1900, 2018)],
+            value=1950
+        )
+    ],
+    style={'width': '250px'}),
 
     html.P([
         html.Label('Year you were born'),
-        dcc.Input(id='self_birth', value=1982, type='number'),
-    ]),
+        # dcc.Input(id='self_birth',value=1982, type='number'),
+        dcc.Dropdown(
+            id='self_birth',
+            options=[{'label': i, 'value':i} for i in range(1900, 2018)],
+            value=1980
+        )
+    ],
+    style={'width': '250px'}),
 
     html.P([
         html.Label('Year your child was born'),
-        dcc.Input(id='child_birth', value=0, type='number'),
-    ]),
+        # dcc.Input(id='child_birth', value=0, type='number'),
+        dcc.Dropdown(
+            id='child_birth',
+            options=[{'label': i, 'value':i} for i in range(1900, 2018)],
+            value=2010
+        )
+    ],
+    style={'width': '250px'}),
 
     html.Div([
         dcc.Graph(
