@@ -6,12 +6,9 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import os
 from random import randint
-# import seaborn as sns
-# from os.path import join
 
 fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/iamc_db.csv'
 df = pd.read_csv(fn)
-# df = pd.read_csv(join('..', 'iamc_db.csv'))
 df['climate'] = df['Scenario'].str.split('-').str[-1]
 climates = df['climate'].unique()
 years = pd.to_datetime(df.columns[6:-1], yearfirst=True)
@@ -20,15 +17,20 @@ fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/GIS
 hist = pd.read_csv(fn)
 hist['datetime'] = pd.to_datetime(hist['datetime'], yearfirst=True)
 
-# colors = sns.color_palette('tab10', 5)
-# colors = colors.as_hex()
+# Adjust SSP temps to match GISS in 2010 so they share the same baseline
+year_2010 = pd.to_datetime('2010-01-01', yearfirst=True)
+GISS_2010 = hist.loc[hist['datetime'] == year_2010, 'temp'].values[0]
+diff_2010 = df.loc[:, '2010'].values[0] - GISS_2010
+df.loc[:, '2005':'2100'] -= diff_2010
+
+# Colors from tab10 palette
 colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+
+
 data = []
 trace = {
-    'x': hist['datetime'],
-    'y': hist['temp'],
-    # 'fill': 'tonexty',
-    # 'showlegend': False,
+    'x': hist.loc[hist['datetime'].dt.year <=2010, 'datetime'],
+    'y': hist.loc[hist['datetime'].dt.year <=2010, 'temp'],
     'type': 'scatter',
     'mode': 'lines',
     'name': 'Historical record',
