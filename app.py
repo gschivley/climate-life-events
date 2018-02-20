@@ -6,6 +6,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import os
 from random import randint
+from bisect import bisect_left
 
 fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/iamc_db.csv'
 df = pd.read_csv(fn)
@@ -152,6 +153,42 @@ app.layout = html.Div(children=[
         # html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
         #          style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
 ])
+
+def takeClosest(myList, myNumber):
+    """
+    From https://stackoverflow.com/questions/12141150/from-list-of-integers-get-number-closest-to-a-given-value
+
+    Assumes myList is sorted. Returns closest value to myNumber.
+
+    If two numbers are equally close, return the smallest number.
+    """
+    pos = bisect_left(myList, myNumber)
+    if pos == 0:
+        return myList[0]
+    if pos == len(myList):
+        return myList[-1]
+    before = myList[pos - 1]
+    after = myList[pos]
+    return after
+    # if after - myNumber < myNumber - before:
+    #    return after
+    # else:
+    #    return before
+
+def annotation_height(year):
+    """
+    Get the height for an annotation.
+    Historical is easy - we have data for every year.
+    After 2010 is harder - need to find the closest year to SSP values
+    """
+    if year < 2010:
+        temp = hist.loc[hist['datetime'].dt.year == year, 'temp'].values[0]
+    else:
+        close_year = str(takeClosest(years.year, year))
+
+        temp = df.loc[:, close_year].max()
+
+    return temp + 0.5
 
 @app.callback(
     dash.dependencies.Output('example-graph', 'figure'),
