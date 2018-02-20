@@ -204,9 +204,12 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My mother<br>was born",
-                "y": 0.75,
+                "y": annotation_height(mother_year), #0.75,
                 "x": '{}-01-01'.format(mother_year),
-                "showarrow": True
+                "ay": -40,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             },
             {
                 "yanchor": "bottom",
@@ -214,9 +217,12 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "I was born",
-                "y": 1,
+                "y": annotation_height(self_year), #1,
                 "x": '{}-01-01'.format(self_year),
-                "showarrow": True
+                "ay": -40,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             },
             {
                 "yanchor": "bottom",
@@ -224,9 +230,12 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My child<br>was born",
-                "y": 1.75,
+                "y": annotation_height(child_year), #1.75,
                 "x": '{}-01-01'.format(child_year),
-                "showarrow": True
+                "ay": -40,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             },
             {
                 "yanchor": "bottom",
@@ -234,9 +243,12 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My child<br>finishes<br>high school",
-                "y": 2.25,
+                "y": annotation_height(child_year+18), #2.25,
                 "x": '{}-01-01'.format(child_year+18),
-                "showarrow": True
+                "ay": -60,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             },
             {
                 "yanchor": "bottom",
@@ -244,9 +256,12 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My first<br>grandchild<br>is born",
-                "y": 3.0,
+                "y": annotation_height(child_year+18+15), #3.0,
                 "x": '{}-01-01'.format(child_year+18+15),
-                "showarrow": True
+                "ay": -100,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             },
             {
                 "yanchor": "bottom",
@@ -254,9 +269,12 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My child<br>retires",
-                "y": 3.5,
+                "y": annotation_height(child_year+67), #3.5,
                 "x": '{}-01-01'.format(child_year+67),
-                "showarrow": True
+                "ay": -60,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             }
             ]
 
