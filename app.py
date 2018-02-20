@@ -121,7 +121,7 @@ app.layout = html.Div(children=[
         # dcc.Input(id='self_birth',value=1982, type='number'),
         dcc.Dropdown(
             id='self_birth',
-            options=[{'label': i, 'value':i} for i in range(1900, 2018)],
+            options=[{'label': i, 'value':i} for i in range(1920, 2018)],
             value=1980
         )
     ],
@@ -132,7 +132,7 @@ app.layout = html.Div(children=[
         # dcc.Input(id='child_birth', value=0, type='number'),
         dcc.Dropdown(
             id='child_birth',
-            options=[{'label': i, 'value':i} for i in range(1900, 2018)],
+            options=[{'label': i, 'value':i} for i in range(1940, 2018)],
             value=2010
         )
     ],
@@ -181,7 +181,7 @@ def update_figure(mother_year, self_year, child_year):
                 "xref": "x",
                 "xanchor": "center",
                 "yref": "y",
-                "text": "My mother was born",
+                "text": "My mother<br>was born",
                 "y": 0.75,
                 "x": '{}-01-01'.format(mother_year),
                 "showarrow": True
@@ -201,7 +201,7 @@ def update_figure(mother_year, self_year, child_year):
                 "xref": "x",
                 "xanchor": "center",
                 "yref": "y",
-                "text": "My child was born",
+                "text": "My child<br>was born",
                 "y": 1.75,
                 "x": '{}-01-01'.format(child_year),
                 "showarrow": True
@@ -211,7 +211,7 @@ def update_figure(mother_year, self_year, child_year):
                 "xref": "x",
                 "xanchor": "center",
                 "yref": "y",
-                "text": "My child finishes high school",
+                "text": "My child<br>finishes<br>high school",
                 "y": 2.25,
                 "x": '{}-01-01'.format(child_year+18),
                 "showarrow": True
@@ -221,15 +221,25 @@ def update_figure(mother_year, self_year, child_year):
                 "xref": "x",
                 "xanchor": "center",
                 "yref": "y",
-                "text": "My first grandchild born",
-                "y": 3.5,
+                "text": "My first<br>grandchild<br>is born",
+                "y": 3.0,
                 "x": '{}-01-01'.format(child_year+18+15),
+                "showarrow": True
+            },
+            {
+                "yanchor": "bottom",
+                "xref": "x",
+                "xanchor": "center",
+                "yref": "y",
+                "text": "My child<br>retires",
+                "y": 3.5,
+                "x": '{}-01-01'.format(child_year+67),
                 "showarrow": True
             }
             ]
 
     if child_year < self_year:
-        annotation = annotation[:-3]
+        annotation = annotation[:-4]
     figure={
         'data': data,
         'layout': {
