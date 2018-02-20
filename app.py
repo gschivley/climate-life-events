@@ -97,6 +97,10 @@ for idx, climate in enumerate(['High', 'Mid', 'Low']):
 
 
 app = dash.Dash(csrf_protect=False)
+app.css.append_css({'external_url':
+                    'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/aa2a41947ef4055caf8ec143149c5f7440b09c04/dash.css'
+                    # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/aa2a41947ef4055caf8ec143149c5f7440b09c04/dash.css'
+                    })
 server = app.server
 server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 
