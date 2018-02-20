@@ -25,7 +25,7 @@ df.loc[:, '2005':'2100'] -= diff_2010
 
 # Colors from tab10 palette
 # colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
-colors = ['#d62728', '#ff7f0e', '#1f77b4']
+colors = ['#d62728', '#ff7f0e', '#1f77b4'][::-1]
 
 scenario_map = {
     'Baseline': 'High',
@@ -49,7 +49,7 @@ trace = {
 data.append(trace)
 
 # for idx, climate in enumerate(climates):
-for idx, climate in enumerate(['High', 'Mid', 'Low']):
+for idx, climate in enumerate(['Low', 'Mid', 'High']):
     # dfs[climate] = df.loc[df['climate'] == climate, '2010':'2100']
     trace = {
         'x': years,
@@ -65,7 +65,7 @@ for idx, climate in enumerate(['High', 'Mid', 'Low']):
     data.append(trace)
 
 # for idx, climate in enumerate(climates):
-for idx, climate in enumerate(['High', 'Mid', 'Low']):
+for idx, climate in enumerate(['Low', 'Mid', 'High']):
     trace = {
         'x': years,
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
