@@ -153,6 +153,7 @@ app.layout = html.Div(children=[
 
 
         dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624)'),
+        dcc.Markdown('Find out more about the data and get the code on [GitHub](https://github.com/gschivley/climate-life-events)')
         # html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
         #          style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
 ])
