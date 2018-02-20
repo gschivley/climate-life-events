@@ -152,7 +152,7 @@ app.layout = html.Div(children=[
                                            'hoverCompareCartesian',
                                            'zoomOut2d', 'zoomIn2d',
                                            'hoverClosestCartesian',
-                                           'sendDataToCloud',
+                                           # 'sendDataToCloud',
                                            'resetScale2d']
             }
         )
