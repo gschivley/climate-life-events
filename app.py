@@ -146,6 +146,15 @@ app.layout = html.Div(children=[
     [
         dcc.Graph(
             id='example-graph',
+            config={
+                'modeBarButtonsToRemove': ['autoScale2d', 'select2d', 'zoom2d',
+                                           'pan2d', 'toggleSpikelines',
+                                           'hoverCompareCartesian',
+                                           'zoomOut2d', 'zoomIn2d',
+                                           'hoverClosestCartesian',
+                                           'sendDataToCloud',
+                                           'resetScale2d']
+            }
         )
         ],
         style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
