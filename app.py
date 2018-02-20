@@ -40,8 +40,10 @@ df['name'] = df['climate'].map(scenario_map)
 
 data = []
 trace = {
-    'x': hist.loc[hist['datetime'].dt.year <=2010, 'datetime'],
-    'y': hist.loc[hist['datetime'].dt.year <=2010, 'temp'],
+    'x': hist.loc[(hist['datetime'].dt.year <= 2010) &
+                  (hist['datetime'].dt.year > 1899), 'datetime'],
+    'y': hist.loc[(hist['datetime'].dt.year <= 2010) &
+                  (hist['datetime'].dt.year > 1899), 'temp'],
     'type': 'scatter',
     'mode': 'lines',
     'name': 'Historical record',
