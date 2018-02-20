@@ -55,7 +55,6 @@ for idx, climate in enumerate(['High', 'Mid', 'Low']):
         'x': years,
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].mean(),
-
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -89,7 +88,6 @@ for idx, climate in enumerate(['High', 'Mid', 'Low']):
         'fill': 'tonexty',
         # 'showlegend': False,
         'mode': 'lines',
-        # 'name': 'max {}'.format(climate),
         'name': climate,
         'line': {'color': colors[idx],
                  'width': 0.5}
@@ -141,26 +139,14 @@ app.layout = html.Div(children=[
     html.Div([
         dcc.Graph(
             id='example-graph',
-            # figure={
-            #     'data': data,
-            #     'layout': {
-            #         'title': 'Dash Data Visualization',
-            #         'annotations': annotation
-            #     }
-            # }
         )
         ],
         style={'width': '90%', 'margin-right': 'auto', 'margin-left': 'auto'}),
 
 
-        # dcc.Markdown('''
-        # Data from:
-        #
-        # [SSP Public Database (Version 1.1)](https://tntcat.iiasa.ac.at/SspDb)
-        # '''),
-        dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624), who created the figure below.'),
-        html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
-                 style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
+        dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624)'),
+        # html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
+        #          style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
 ])
 
 @app.callback(
@@ -169,11 +155,6 @@ app.layout = html.Div(children=[
     dash.dependencies.Input('self_birth', 'value'),
     dash.dependencies.Input('child_birth', 'value')])
 def update_figure(mother_year, self_year, child_year):
-    # y_value = {}
-    # for key, year in zip(['mother', 'self', 'child'],
-    #                      [mother_year, self_year, child_year]):
-    #     if year < 2010:
-    #         y_value[key] =
 
     annotation = [
             {
@@ -243,7 +224,6 @@ def update_figure(mother_year, self_year, child_year):
     figure={
         'data': data,
         'layout': {
-            # 'title': 'Dash Data Visualization',
             'annotations': annotation,
             'hovermode': 'closest',
             'yaxis': {
