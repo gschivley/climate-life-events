@@ -119,7 +119,7 @@ app.layout = html.Div(children=[
             value=1950
         )
     ],
-    style={'width': '250px'}),
+    style={'width': '250px', 'margin-left': '40px'}),
 
     html.P([
         html.Label('Year you were born'),
@@ -130,7 +130,7 @@ app.layout = html.Div(children=[
             value=1980
         )
     ],
-    style={'width': '250px'}),
+    style={'width': '250px', 'margin-left': '40px'}),
 
     html.P([
         html.Label('Year your child was born'),
@@ -141,14 +141,15 @@ app.layout = html.Div(children=[
             value=2010
         )
     ],
-    style={'width': '250px'}),
-
-    html.Div([
+    style={'width': '250px', 'margin-left': '40px'}),
+    html.Div(
+    [
         dcc.Graph(
             id='example-graph',
         )
         ],
-        style={'width': '90%', 'margin-right': 'auto', 'margin-left': 'auto'}),
+        style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
+        ),
 
 
         dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624)'),
@@ -258,8 +259,8 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My first<br>grandchild<br>is born",
-                "y": annotation_height(child_year+18+15), #3.0,
-                "x": '{}-01-01'.format(child_year+18+15),
+                "y": annotation_height(child_year+18+18), #3.0,
+                "x": '{}-01-01'.format(child_year+18+18),
                 "ay": -100,
                 "ax": 0,
                 "showarrow": True,
@@ -292,10 +293,14 @@ def update_figure(mother_year, self_year, child_year):
                 'title': 'Observed & Forecast Temperature Anomaly',
                 'showgrid': False,
             },
-            "font": {
-                "family": "Roboto",
-                "size": 14
-            }
+            'xaxis': {
+                'showgrid': False,
+                'title': 'Year'
+            },
+            # "font": {
+            #     "family": "Roboto",
+            #     "size": 14
+            # }
         }
     }
 
