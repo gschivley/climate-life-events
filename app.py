@@ -24,8 +24,18 @@ diff_2010 = df.loc[:, '2010'].values[0] - GISS_2010
 df.loc[:, '2005':'2100'] -= diff_2010
 
 # Colors from tab10 palette
-colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+# colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+colors = ['#d62728', '#ff7f0e', '#1f77b4']
 
+scenario_map = {
+    'Baseline': 'High',
+    '60': 'High',
+    '45': 'Mid',
+    '34': 'Mid',
+    '26': 'Low'
+}
+
+df['name'] = df['climate'].map(scenario_map)
 
 data = []
 trace = {
@@ -38,11 +48,14 @@ trace = {
 }
 data.append(trace)
 
-for idx, climate in enumerate(climates):
+# for idx, climate in enumerate(climates):
+for idx, climate in enumerate(['High', 'Mid', 'Low']):
     # dfs[climate] = df.loc[df['climate'] == climate, '2010':'2100']
     trace = {
         'x': years,
-        'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
+        # 'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
+        'y': df.loc[df['name'] == climate, '2010':'2100'].mean(),
+
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -52,10 +65,12 @@ for idx, climate in enumerate(climates):
     }
     data.append(trace)
 
-for idx, climate in enumerate(climates):
+# for idx, climate in enumerate(climates):
+for idx, climate in enumerate(['High', 'Mid', 'Low']):
     trace = {
         'x': years,
-        'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
+        # 'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
+        'y': df.loc[df['name'] == climate, '2010':'2100'].min(),
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -68,7 +83,8 @@ for idx, climate in enumerate(climates):
 
     trace = {
         'x': years,
-        'y': df.loc[df['climate'] == climate, '2010':'2100'].max(),
+        # 'y': df.loc[df['climate'] == climate, '2010':'2100'].max(),
+        'y': df.loc[df['name'] == climate, '2010':'2100'].max(),
         'type': 'scatter',
         'fill': 'tonexty',
         # 'showlegend': False,
