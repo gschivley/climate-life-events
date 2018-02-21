@@ -100,7 +100,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
 
 
 app = dash.Dash(csrf_protect=False)
-app.config.supress_callback_exceptions=True
+# app.config.supress_callback_exceptions=True
 app.css.append_css({'external_url':
                     'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/aa2a41947ef4055caf8ec143149c5f7440b09c04/dash.css'
                     # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/19962ce772e14de9df5b82e8de526e5ce1434cfd/dash.css'
