@@ -100,6 +100,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
 
 
 app = dash.Dash(csrf_protect=False)
+app.config.supress_callback_exceptions=True
 app.css.append_css({'external_url':
                     'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/aa2a41947ef4055caf8ec143149c5f7440b09c04/dash.css'
                     # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/19962ce772e14de9df5b82e8de526e5ce1434cfd/dash.css'
@@ -146,15 +147,15 @@ app.layout = html.Div(children=[
     [
         dcc.Graph(
             id='example-graph',
-            # config={
-            #     'modeBarButtonsToRemove': ['autoScale2d', 'select2d', 'zoom2d',
-            #                                'pan2d', 'toggleSpikelines',
-            #                                'hoverCompareCartesian',
-            #                                'zoomOut2d', 'zoomIn2d',
-            #                                'hoverClosestCartesian',
-            #                                # 'sendDataToCloud',
-            #                                'resetScale2d']
-            # }
+            config={
+                'modeBarButtonsToRemove': ['autoScale2d', 'select2d', 'zoom2d',
+                                           'pan2d', 'toggleSpikelines',
+                                           'hoverCompareCartesian',
+                                           'zoomOut2d', 'zoomIn2d',
+                                           'hoverClosestCartesian',
+                                           # 'sendDataToCloud',
+                                           'resetScale2d']
+            }
         )
         ],
         style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
