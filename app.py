@@ -144,18 +144,18 @@ app.layout = html.Div(children=[
     style={'width': '250px', 'margin-left': '40px'}),
     html.Div(
     [
-        dcc.Graph(
-            id='example-graph',
-            config={
-                'modeBarButtonsToRemove': ['autoScale2d', 'select2d', 'zoom2d',
-                                           'pan2d', 'toggleSpikelines',
-                                           'hoverCompareCartesian',
-                                           'zoomOut2d', 'zoomIn2d',
-                                           'hoverClosestCartesian',
-                                           # 'sendDataToCloud',
-                                           'resetScale2d']
-            }
-        )
+        # dcc.Graph(
+        #     id='example-graph',
+        #     config={
+        #         'modeBarButtonsToRemove': ['autoScale2d', 'select2d', 'zoom2d',
+        #                                    'pan2d', 'toggleSpikelines',
+        #                                    'hoverCompareCartesian',
+        #                                    'zoomOut2d', 'zoomIn2d',
+        #                                    'hoverClosestCartesian',
+        #                                    # 'sendDataToCloud',
+        #                                    'resetScale2d']
+        #     }
+        # )
         ],
         style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
         ),
