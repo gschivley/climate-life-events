@@ -326,7 +326,7 @@ def update_figure(mother_year, self_year, child_year):
             'hovermode': 'closest',
             'yaxis': {
                 'ticksuffix': '°C',
-                'title': 'Observed & Forecast Temperature Anomaly',
+                'title': 'Observed & Projected Temperature Anomaly',
                 'showgrid': False,
             },
             'xaxis': {
