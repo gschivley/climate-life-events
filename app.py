@@ -102,14 +102,18 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
 app = dash.Dash(csrf_protect=False)
 # app.config.supress_callback_exceptions=True
 app.css.append_css({'external_url':
-                    'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/aa2a41947ef4055caf8ec143149c5f7440b09c04/dash.css'
-                    # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/19962ce772e14de9df5b82e8de526e5ce1434cfd/dash.css'
+                    'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/8daf84050707365c5e266591d65232607f802a43/dash.css'
+                    # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/8daf84050707365c5e266591d65232607f802a43/dash.css'
+
                     })
 server = app.server
-server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+# server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 
 app.layout = html.Div(children=[
-    html.H1(children='Climate change and life events'),
+    html.H1(
+        children='Climate change and life events',
+        style={'text-align': 'center'}
+    ),
 
     html.P([
         html.Label('Year your mother was born'),
@@ -120,7 +124,9 @@ app.layout = html.Div(children=[
             value=1950
         )
     ],
-    style={'width': '250px', 'margin-left': '40px'}),
+    style={'width': '250px', 'margin-right': 'auto',
+           'margin-left': 'auto', 'text-align': 'center'}),
+    # 'margin-left': '40px', 'text-align': 'center'}),
 
     html.P([
         html.Label('Year you were born'),
@@ -131,7 +137,8 @@ app.layout = html.Div(children=[
             value=1980
         )
     ],
-    style={'width': '250px', 'margin-left': '40px'}),
+    style={'width': '250px', 'margin-right': 'auto',
+           'margin-left': 'auto', 'text-align': 'center'}),
 
     html.P([
         html.Label('Year your child was born'),
@@ -142,7 +149,8 @@ app.layout = html.Div(children=[
             value=2010
         )
     ],
-    style={'width': '250px', 'margin-left': '40px'}),
+    style={'width': '250px', 'margin-right': 'auto',
+           'margin-left': 'auto', 'text-align': 'center'}),
     html.Div(
     [
         dcc.Graph(
@@ -158,7 +166,7 @@ app.layout = html.Div(children=[
             }
         )
         ],
-        style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
+        # style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
         ),
 
 
@@ -166,7 +174,10 @@ app.layout = html.Div(children=[
         dcc.Markdown('Find out more about the data, get the code, or help improve this figure on [GitHub](https://github.com/gschivley/climate-life-events)')
         # html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
         #          style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
-])
+],
+className='container'
+# style={'width': '600px', 'margin-right': 'auto', 'margin-left': 'auto'}
+)
 
 def takeClosest(myList, myNumber):
     """
@@ -297,6 +308,16 @@ def update_figure(mother_year, self_year, child_year):
     figure={
         'data': data,
         'layout': {
+            'legend': {
+                'orientation': 'h',
+                "x": 0.5,
+                'xanchor': 'center'
+            },
+            'margin': {
+                'l': 80,
+                'r': 50,
+                't': 40
+            },
             'annotations': annotation,
             'hovermode': 'closest',
             'yaxis': {
@@ -306,7 +327,7 @@ def update_figure(mother_year, self_year, child_year):
             },
             'xaxis': {
                 'showgrid': False,
-                'title': 'Year'
+                # 'title': 'Year'
             },
             # "font": {
             #     "family": "Roboto",
