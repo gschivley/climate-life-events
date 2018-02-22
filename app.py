@@ -169,7 +169,7 @@ app.layout = html.Div(children=[
         # style={'width': '75%', 'margin-right': 'auto', 'margin-left': 'auto'}
         ),
 
-
+        dcc.Markdown('Created by [Greg Schivley](https://twitter.com/gschivley) with help from [Ben Noll](https://twitter.com/BenNollWeather)'),
         dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624)'),
         dcc.Markdown('Find out more about the data, get the code, or help improve this figure on [GitHub](https://github.com/gschivley/climate-life-events)')
         # html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
