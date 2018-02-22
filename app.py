@@ -316,7 +316,7 @@ def update_figure(mother_year, self_year, child_year):
             'margin': {
                 'l': 80,
                 'r': 50,
-                't': 40
+                't': 40 
             },
             'annotations': annotation,
             'hovermode': 'closest',
