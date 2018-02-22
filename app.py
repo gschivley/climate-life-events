@@ -4,9 +4,12 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
-import os
-from random import randint
+# import os
+# from random import randint
 from bisect import bisect_left
+from datetime import datetime
+
+currentYear = datetime.now().year
 
 fn = 'https://raw.githubusercontent.com/gschivley/climate-life-events/master/iamc_db.csv'
 df = pd.read_csv(fn)
@@ -145,7 +148,8 @@ app.layout = html.Div(children=[
         # dcc.Input(id='child_birth', value=0, type='number'),
         dcc.Dropdown(
             id='child_birth',
-            options=[{'label': i, 'value':i} for i in range(1940, 2018)],
+            options=[{'label': i, 'value':i}
+                     for i in range(1940, currentYear+1)],
             value=2010
         )
     ],
