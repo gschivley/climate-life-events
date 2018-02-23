@@ -225,6 +225,34 @@ def annotation_height(year):
     dash.dependencies.Input('self_birth', 'value'),
     dash.dependencies.Input('child_birth', 'value')])
 def update_figure(mother_year, self_year, child_year):
+    self_retires = self_year + 67
+    child_hs = child_year + 18
+    grandchild_born = child_year + 30
+    child_retires = child_year + 67
+
+    # if ((self_retires - grandchild_born) < 10
+    #     and (self_retires - grandchild_born) >= 0):
+    #
+    #     sr_xanchor = 'left'
+    #
+    # elif ((self_retires - grandchild_born) > -10
+    #     and (self_retires - grandchild_born) <= 0):
+    #
+    #     sr_xanchor = 'right'
+    #
+    # else:
+    #     sr_xanchor = 'center'
+    # sr_ax = 0
+    # if self_retires == grandchild_born:
+    #     left_pad = 15 * ' '
+    #     right_pad = ''
+    #     sr_ax = 5
+    # elif abs(self_retires - grandchild_born) <= 10:
+    #     left_pad = int((7 - max(grandchild_born-self_retires, 0)) * 1.5) * ' '
+    #     right_pad = int((7 - max(self_retires-grandchild_born, 0)) * 1.5) * ' '
+    #
+    # else:
+    #     left_pad = right_pad = ''
 
     annotation = [
             {
@@ -272,8 +300,8 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My child<br>finishes<br>high school",
-                "y": annotation_height(child_year+18), #2.25,
-                "x": '{}-01-01'.format(child_year+18),
+                "y": annotation_height(child_hs), #2.25,
+                "x": '{}-01-01'.format(child_hs),
                 "ay": -60,
                 "ax": 0,
                 "showarrow": True,
@@ -285,21 +313,35 @@ def update_figure(mother_year, self_year, child_year):
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My first<br>grandchild<br>is born",
-                "y": annotation_height(child_year+18+18), #3.0,
-                "x": '{}-01-01'.format(child_year+18+18),
+                "y": annotation_height(grandchild_born), #3.0,
+                "x": '{}-01-01'.format(grandchild_born),
                 "ay": -100,
                 "ax": 0,
                 "showarrow": True,
                 'arrowhead': 2,
             },
+            # {
+            #     "yanchor": "bottom",
+            #     "xref": "x",
+            #     "xanchor": "center",
+            #     "yref": "y",
+            #     "text": left_pad + "I retire" + right_pad,
+            #     "y": annotation_height(self_retires), #1,
+            #     "x": '{}-01-01'.format(self_retires),
+            #     "ay": -50,
+            #     "ax": sr_ax,#0,#(self_retires - grandchild_born) * 2,
+            #     "showarrow": True,
+            #     'arrowhead': 2,
+            #     # 'align': sr_xanchor
+            # },
             {
                 "yanchor": "bottom",
                 "xref": "x",
                 "xanchor": "center",
                 "yref": "y",
                 "text": "My child<br>retires",
-                "y": annotation_height(child_year+67), #3.5,
-                "x": '{}-01-01'.format(child_year+67),
+                "y": annotation_height(child_retires), #3.5,
+                "x": '{}-01-01'.format(child_retires),
                 "ay": -60,
                 "ax": 0,
                 "showarrow": True,
