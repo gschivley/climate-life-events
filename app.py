@@ -8,6 +8,7 @@ import pandas as pd
 # from random import randint
 from bisect import bisect_left
 from datetime import datetime
+from copy import deepcopy
 
 currentYear = datetime.now().year
 
@@ -100,7 +101,12 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
     }
     data.append(trace)
 
+# Define separate traces for units
+data_si = deepcopy(data)
 
+data_imperial = deepcopy(data)
+for t in data_imperial:
+    t['y'] *= 9/5
 
 app = dash.Dash(csrf_protect=False)
 # app.config.supress_callback_exceptions=True
@@ -155,6 +161,19 @@ app.layout = html.Div(children=[
     ],
     style={'width': '250px', 'margin-right': 'auto',
            'margin-left': 'auto', 'text-align': 'center'}),
+
+    html.P([
+        html.Label('Celsius or Fahrenheit?'),
+        # dcc.Input(id='child_birth', value=0, type='number'),
+        dcc.Dropdown(
+            id='units',
+            options=[{'label': 'Celsius', 'value': 'Celsius'},
+                      {'label': 'Farenheight', 'value': 'Farenheight'}],
+            value='Celsius'
+        )
+    ],
+    style={'width': '250px', 'margin-right': 'auto',
+           'margin-left': 'auto', 'text-align': 'center'}),
     html.Div(
     [
         dcc.Graph(
@@ -204,31 +223,65 @@ def takeClosest(myList, myNumber):
     # else:
     #    return before
 
-def annotation_height(year):
-    """
-    Get the height for an annotation.
-    Historical is easy - we have data for every year.
-    After 2010 is harder - need to find the closest year to SSP values
-    """
-    if year < 2010:
-        temp = hist.loc[hist['datetime'].dt.year == year, 'temp'].values[0]
-    else:
-        close_year = str(takeClosest(years.year, year))
-
-        temp = df.loc[:, close_year].max()
-
-    return temp + 0.5
+# def annotation_height(year):
+#     """
+#     Get the height for an annotation.
+#     Historical is easy - we have data for every year.
+#     After 2010 is harder - need to find the closest year to SSP values
+#     """
+#     if year < 2010:
+#         temp = hist.loc[hist['datetime'].dt.year == year, 'temp'].values[0]
+#     else:
+#         close_year = str(takeClosest(years.year, year))
+#
+#         temp = df.loc[:, close_year].max()
+#
+#     return temp + 0.5
 
 @app.callback(
     dash.dependencies.Output('example-graph', 'figure'),
     [dash.dependencies.Input('mother_birth', 'value'),
     dash.dependencies.Input('self_birth', 'value'),
-    dash.dependencies.Input('child_birth', 'value')])
-def update_figure(mother_year, self_year, child_year):
+    dash.dependencies.Input('child_birth', 'value'),
+    dash.dependencies.Input('units', 'value')])
+def update_figure(mother_year, self_year, child_year, units):
+
+    def annotation_height(year):
+        """
+        Get the height for an annotation.
+        Historical is easy - we have data for every year.
+        After 2010 is harder - need to find the closest year to SSP values
+        """
+        if year < 2010:
+            temp = hist.loc[hist['datetime'].dt.year == year, 'temp'].values[0]
+        else:
+            close_year = str(takeClosest(years.year, year))
+
+            temp = df.loc[:, close_year].max()
+
+        # add a space buffer
+        temp += 0.5
+
+        # Scale for imperial units
+        if units == 'Farenheight':
+            temp *= 9/5
+
+        return temp
+
+
     self_retires = self_year + 67
     child_hs = child_year + 18
     grandchild_born = child_year + 30
     child_retires = child_year + 67
+
+    # Set units on axis and scale number for imperial units
+    if units == 'Farenheight':
+        tick_suffix = '°F'
+        _data = deepcopy(data_imperial)
+
+    else:
+        tick_suffix = '°C'
+        _data = deepcopy(data_si)
 
     # if ((self_retires - grandchild_born) < 10
     #     and (self_retires - grandchild_born) >= 0):
@@ -352,7 +405,7 @@ def update_figure(mother_year, self_year, child_year):
     if child_year < self_year:
         annotation = annotation[:-4]
     figure={
-        'data': data,
+        'data': _data,
         'layout': {
             'legend': {
                 'orientation': 'h',
@@ -367,7 +420,7 @@ def update_figure(mother_year, self_year, child_year):
             'annotations': annotation,
             'hovermode': 'closest',
             'yaxis': {
-                'ticksuffix': '°C',
+                'ticksuffix': tick_suffix,#'°C',
                 'title': 'Observed & Projected Temperature Anomaly',
                 'showgrid': False,
             },
