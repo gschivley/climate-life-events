@@ -318,6 +318,23 @@ def update_figure(mother_year, self_year, child_year, units):
 
     annotation = [
             {
+                "yanchor": "top",
+                "xref": "paper",
+                "xanchor": "right",
+                "yref": "paper",
+                "text": "Created by @gschivley, inspired by @aviandelights<br>Make your own at climate-life-events.herokuapp.com",
+                "y": 0.12, #0.75,
+                "x": 1,
+                'align': 'right',
+                # "ay": -40,
+                # "ax": 0,
+                "showarrow": False,
+                'font': {
+                    'color': '#A9A9A9',#'#d3d3d3',
+                    'size': 10
+                }
+            },
+            {
                 "yanchor": "bottom",
                 "xref": "x",
                 "xanchor": "center",
