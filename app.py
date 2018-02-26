@@ -48,6 +48,7 @@ trace = {
                   (hist['datetime'].dt.year > 1899), 'datetime'],
     'y': hist.loc[(hist['datetime'].dt.year <= 2010) &
                   (hist['datetime'].dt.year > 1899), 'temp'],
+    'hoverinfo': 'text+x',
     'type': 'scatter',
     'mode': 'lines',
     'name': 'Historical record',
@@ -62,6 +63,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
         'x': years,
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].mean(),
+        'hoverinfo': 'text+x',
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -78,6 +80,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].min(),
         # 'fill': 'tonexty',
+        'hoverinfo': 'text+x',
         'showlegend': False,
         'type': 'scatter',
         'mode': 'lines',
@@ -91,6 +94,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
         'x': years,
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].max(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].max(),
+        'hoverinfo': 'text+x',
         'type': 'scatter',
         'fill': 'tonexty',
         # 'showlegend': False,
@@ -278,10 +282,14 @@ def update_figure(mother_year, self_year, child_year, units):
     if units == 'Farenheight':
         tick_suffix = '°F'
         _data = deepcopy(data_imperial)
+        for trace in _data:
+            trace['text'] = ['{:.2f}°F'.format(y) for y in trace['y']]
 
     else:
         tick_suffix = '°C'
         _data = deepcopy(data_si)
+        for trace in _data:
+            trace['text'] = ['{:.2f}°C'.format(y) for y in trace['y']]
 
     # if ((self_retires - grandchild_born) < 10
     #     and (self_retires - grandchild_born) >= 0):
