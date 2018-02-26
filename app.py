@@ -112,7 +112,9 @@ data_imperial = deepcopy(data)
 for t in data_imperial:
     t['y'] *= 9/5
 
-app = dash.Dash(csrf_protect=False)
+app = dash.Dash(__name__, static_folder='assets')
+# app.scripts.config.serve_locally=True
+# app.css.config.serve_locally=True
 # app.config.supress_callback_exceptions=True
 app.css.append_css({'external_url':
                     'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/fe763af6be3fc79eca341b04cd641124de6f6f0d/dash.css'
@@ -124,6 +126,7 @@ server = app.server
 # server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 
 app.layout = html.Div(children=[
+    # html.Link(href='/assets/stylesheet.css', rel='stylesheet'),
     html.H1(
         children='Climate change and life events',
         style={'text-align': 'center'}
