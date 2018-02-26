@@ -339,7 +339,7 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
                 "xanchor": "right",
                 "yref": "paper",
                 "text": "Created by @gschivley, inspired by @aviandelights<br>Make your own at climate-life-events.herokuapp.com",
-                "y": 0.12,
+                "y": 0.115,
                 "x": 1,
                 'align': 'right',
                 # "ay": -40,
