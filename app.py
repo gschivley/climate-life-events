@@ -4,8 +4,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
-# import os
-# from random import randint
 from bisect import bisect_left
 from datetime import datetime
 from copy import deepcopy
@@ -29,7 +27,6 @@ diff_2010 = df.loc[:, '2010'].values[0] - GISS_2010
 df.loc[:, '2005':'2100'] -= diff_2010
 
 # Colors from tab10 palette
-# colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
 colors = ['#d62728', '#ff7f0e', '#1f77b4'][::-1]
 
 scenario_map = {
@@ -56,15 +53,11 @@ trace = {
 }
 data.append(trace)
 
-# for idx, climate in enumerate(climates):
 for idx, climate in enumerate(['Low', 'Mid', 'High']):
-    # dfs[climate] = df.loc[df['climate'] == climate, '2010':'2100']
     trace = {
         'x': years,
-        # 'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].mean(),
         'hoverinfo': 'text',#'text+x',
-        # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
         'mode': 'lines',
@@ -77,9 +70,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
 for idx, climate in enumerate(['Low', 'Mid', 'High']):
     trace = {
         'x': years,
-        # 'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].min(),
-        # 'fill': 'tonexty',
         'hoverinfo': 'text',#'text+x',
         'showlegend': False,
         'type': 'scatter',
@@ -92,12 +83,10 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
 
     trace = {
         'x': years,
-        # 'y': df.loc[df['climate'] == climate, '2010':'2100'].max(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].max(),
         'hoverinfo': 'text',#'text+x',
         'type': 'scatter',
         'fill': 'tonexty',
-        # 'showlegend': False,
         'mode': 'lines',
         'name': climate,
         'line': {'color': colors[idx],
@@ -123,7 +112,7 @@ app.css.append_css({'external_url':
                     })
 app.title = 'Your life and climate change'
 server = app.server
-# server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+
 
 app.layout = html.Div(children=[
     # html.Link(href='/assets/stylesheet.css', rel='stylesheet'),
@@ -215,8 +204,6 @@ app.layout = html.Div(children=[
         dcc.Markdown('Created by [Greg Schivley](https://twitter.com/gschivley) with help from [Ben Noll](https://twitter.com/BenNollWeather)'),
         dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624)'),
         dcc.Markdown('Find out more about the data, get the code, or help improve this figure on [GitHub](https://github.com/gschivley/climate-life-events)')
-        # html.Img(src='https://pbs.twimg.com/media/DBSVdWFVwAAxaMy.jpg',
-        #          style={'width': '50%', 'margin-right': 'auto', 'margin-left': 'auto'})
 ],
 className='container'
 # style={'width': '600px', 'margin-right': 'auto', 'margin-left': 'auto'}
@@ -243,20 +230,6 @@ def takeClosest(myList, myNumber):
     # else:
     #    return before
 
-# def annotation_height(year):
-#     """
-#     Get the height for an annotation.
-#     Historical is easy - we have data for every year.
-#     After 2010 is harder - need to find the closest year to SSP values
-#     """
-#     if year < 2010:
-#         temp = hist.loc[hist['datetime'].dt.year == year, 'temp'].values[0]
-#     else:
-#         close_year = str(takeClosest(years.year, year))
-#
-#         temp = df.loc[:, close_year].max()
-#
-#     return temp + 0.5
 
 @app.callback(
     dash.dependencies.Output('example-graph', 'figure'),
@@ -320,30 +293,6 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
             hover_inputs = zip(trace['x'], trace['y'])
             trace['text'] = [hovertext(x, y, tick_suffix)
                              for (x, y) in hover_inputs]
-
-    # if ((self_retires - grandchild_born) < 10
-    #     and (self_retires - grandchild_born) >= 0):
-    #
-    #     sr_xanchor = 'left'
-    #
-    # elif ((self_retires - grandchild_born) > -10
-    #     and (self_retires - grandchild_born) <= 0):
-    #
-    #     sr_xanchor = 'right'
-    #
-    # else:
-    #     sr_xanchor = 'center'
-    # sr_ax = 0
-    # if self_retires == grandchild_born:
-    #     left_pad = 15 * ' '
-    #     right_pad = ''
-    #     sr_ax = 5
-    # elif abs(self_retires - grandchild_born) <= 10:
-    #     left_pad = int((7 - max(grandchild_born-self_retires, 0)) * 1.5) * ' '
-    #     right_pad = int((7 - max(self_retires-grandchild_born, 0)) * 1.5) * ' '
-    #
-    # else:
-    #     left_pad = right_pad = ''
 
     annotation = [
             {
