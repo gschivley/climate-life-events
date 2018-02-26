@@ -472,6 +472,11 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
 
     if child_year < self_year:
         annotation = annotation[:-4]
+
+    # push the lower lim of the xaxis back if needed
+    x_min_year = min(1899, grandmother_year - 20)
+    x_min_date = '{}-01-01'.format(x_min_year)
+
     figure={
         'data': _data,
         'layout': {
@@ -493,6 +498,7 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
                 'showgrid': False,
             },
             'xaxis': {
+                'range': [x_min_date, '2100-01-01'],
                 'showgrid': False,
                 # 'title': 'Year'
             },
