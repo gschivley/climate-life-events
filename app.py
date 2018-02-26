@@ -299,7 +299,7 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
 
     self_retires = self_year + 67
     child_hs = child_year + 18
-    grandchild_born = child_year + 30
+    grandchild_born = child_year + 32
     child_retires = child_year + 67
 
     # Set units on axis and scale number for imperial units
