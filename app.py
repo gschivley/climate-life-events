@@ -48,7 +48,7 @@ trace = {
                   (hist['datetime'].dt.year > 1879), 'datetime'],
     'y': hist.loc[(hist['datetime'].dt.year <= 2010) &
                   (hist['datetime'].dt.year > 1879), 'temp'],
-    'hoverinfo': 'text+x',
+    'hoverinfo': 'text',#'text+x',
     'type': 'scatter',
     'mode': 'lines',
     'name': 'Historical record',
@@ -63,7 +63,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
         'x': years,
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].mean(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].mean(),
-        'hoverinfo': 'text+x',
+        'hoverinfo': 'text',#'text+x',
         # 'fill': 'tonexty',
         'showlegend': False,
         'type': 'scatter',
@@ -80,7 +80,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].min(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].min(),
         # 'fill': 'tonexty',
-        'hoverinfo': 'text+x',
+        'hoverinfo': 'text',#'text+x',
         'showlegend': False,
         'type': 'scatter',
         'mode': 'lines',
@@ -94,7 +94,7 @@ for idx, climate in enumerate(['Low', 'Mid', 'High']):
         'x': years,
         # 'y': df.loc[df['climate'] == climate, '2010':'2100'].max(),
         'y': df.loc[df['name'] == climate, '2010':'2100'].max(),
-        'hoverinfo': 'text+x',
+        'hoverinfo': 'text',#'text+x',
         'type': 'scatter',
         'fill': 'tonexty',
         # 'showlegend': False,
@@ -290,6 +290,13 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
         return temp
 
 
+    def hovertext(datetime, temp, suffix):
+        hover_year = datetime.year
+        hover_string = '{}<br>{:.2f}{}'.format(hover_year, temp, suffix)
+
+        return hover_string
+
+
     self_retires = self_year + 67
     child_hs = child_year + 18
     grandchild_born = child_year + 30
@@ -300,13 +307,19 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
         tick_suffix = '°F'
         _data = deepcopy(data_imperial)
         for trace in _data:
-            trace['text'] = ['{:.2f}°F'.format(y) for y in trace['y']]
+            # trace['text'] = ['{:.2f}°F'.format(y) for y in trace['y']]
+            hover_inputs = zip(trace['x'], trace['y'])
+            trace['text'] = [hovertext(x, y, tick_suffix)
+                             for (x, y) in hover_inputs]
 
     else:
         tick_suffix = '°C'
         _data = deepcopy(data_si)
         for trace in _data:
-            trace['text'] = ['{:.2f}°C'.format(y) for y in trace['y']]
+            # trace['text'] = ['{:.2f}°C'.format(y) for y in trace['y']]
+            hover_inputs = zip(trace['x'], trace['y'])
+            trace['text'] = [hovertext(x, y, tick_suffix)
+                             for (x, y) in hover_inputs]
 
     # if ((self_retires - grandchild_born) < 10
     #     and (self_retires - grandchild_born) >= 0):
