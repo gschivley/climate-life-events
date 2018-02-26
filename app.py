@@ -119,6 +119,7 @@ app.css.append_css({'external_url':
                     # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/8daf84050707365c5e266591d65232607f802a43/dash.css'
 
                     })
+app.title = 'Your life and climate change'
 server = app.server
 # server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
 
