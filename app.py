@@ -173,7 +173,7 @@ app.layout = html.Div(children=[
         dcc.Dropdown(
             id='units',
             options=[{'label': 'Celsius', 'value': 'Celsius'},
-                      {'label': 'Farenheight', 'value': 'Farenheight'}],
+                      {'label': 'Fahrenheit', 'value': 'Fahrenheit'}],
             value='Celsius'
         )
     ],
@@ -268,7 +268,7 @@ def update_figure(mother_year, self_year, child_year, units):
         temp += 0.5
 
         # Scale for imperial units
-        if units == 'Farenheight':
+        if units == 'Fahrenheit':
             temp *= 9/5
 
         return temp
@@ -280,7 +280,7 @@ def update_figure(mother_year, self_year, child_year, units):
     child_retires = child_year + 67
 
     # Set units on axis and scale number for imperial units
-    if units == 'Farenheight':
+    if units == 'Fahrenheit':
         tick_suffix = '°F'
         _data = deepcopy(data_imperial)
         for trace in _data:
