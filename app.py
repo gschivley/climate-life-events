@@ -45,9 +45,9 @@ df['name'] = df['climate'].map(scenario_map)
 data = []
 trace = {
     'x': hist.loc[(hist['datetime'].dt.year <= 2010) &
-                  (hist['datetime'].dt.year > 1899), 'datetime'],
+                  (hist['datetime'].dt.year > 1879), 'datetime'],
     'y': hist.loc[(hist['datetime'].dt.year <= 2010) &
-                  (hist['datetime'].dt.year > 1899), 'temp'],
+                  (hist['datetime'].dt.year > 1879), 'temp'],
     'hoverinfo': 'text+x',
     'type': 'scatter',
     'mode': 'lines',
@@ -115,7 +115,7 @@ for t in data_imperial:
 app = dash.Dash(csrf_protect=False)
 # app.config.supress_callback_exceptions=True
 app.css.append_css({'external_url':
-                    'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/8daf84050707365c5e266591d65232607f802a43/dash.css'
+                    'https://cdn.rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/fe763af6be3fc79eca341b04cd641124de6f6f0d/dash.css'
                     # 'https://rawgit.com/gschivley/8040fc3c7e11d2a4e7f0589ffc829a02/raw/8daf84050707365c5e266591d65232607f802a43/dash.css'
 
                     })
@@ -128,7 +128,18 @@ app.layout = html.Div(children=[
         children='Climate change and life events',
         style={'text-align': 'center'}
     ),
-
+    html.Div([
+    html.P([
+        html.Label('Year your grandmother was born'),
+        # dcc.Input(id='mother_birth', value=1952, type='number'),
+        dcc.Dropdown(
+            id='grandmother_birth',
+            options=[{'label': i, 'value':i} for i in range(1880, 2018)],
+            value=1930
+        )
+    ],
+    style={'width': '250px', 'margin-right': 'auto',
+           'margin-left': 'auto', 'text-align': 'center'}),
     html.P([
         html.Label('Year your mother was born'),
         # dcc.Input(id='mother_birth', value=1952, type='number'),
@@ -178,7 +189,8 @@ app.layout = html.Div(children=[
         )
     ],
     style={'width': '250px', 'margin-right': 'auto',
-           'margin-left': 'auto', 'text-align': 'center'}),
+           'margin-left': 'auto', 'text-align': 'center'})],
+           className='input-wrapper'),
     html.Div(
     [
         dcc.Graph(
@@ -245,11 +257,12 @@ def takeClosest(myList, myNumber):
 
 @app.callback(
     dash.dependencies.Output('example-graph', 'figure'),
-    [dash.dependencies.Input('mother_birth', 'value'),
+    [dash.dependencies.Input('grandmother_birth', 'value'),
+    dash.dependencies.Input('mother_birth', 'value'),
     dash.dependencies.Input('self_birth', 'value'),
     dash.dependencies.Input('child_birth', 'value'),
     dash.dependencies.Input('units', 'value')])
-def update_figure(mother_year, self_year, child_year, units):
+def update_figure(grandmother_year, mother_year, self_year, child_year, units):
 
     def annotation_height(year):
         """
@@ -333,6 +346,19 @@ def update_figure(mother_year, self_year, child_year, units):
                     'color': '#DCDCDC',#'#A9A9A9',#'#d3d3d3',
                     'size': 9
                 }
+            },
+            {
+                "yanchor": "bottom",
+                "xref": "x",
+                "xanchor": "center",
+                "yref": "y",
+                "text": "My grandmother<br>was born",
+                "y": annotation_height(grandmother_year), #0.75,
+                "x": '{}-01-01'.format(grandmother_year),
+                "ay": -90,
+                "ax": 0,
+                "showarrow": True,
+                'arrowhead': 2,
             },
             {
                 "yanchor": "bottom",
