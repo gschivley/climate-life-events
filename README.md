@@ -5,7 +5,7 @@ Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973
 
 #### Data from:
 
-© SSP Public Database (Version 1.1) https://tntcat.iiasa.ac.at/SspDb
+© SSP Public Database (Version 1.1) https://tntcat.iiasa.ac.at/SspDb  
 NASA's GISS historical data https://data.giss.nasa.gov/gistemp/
 
 ## Important details
