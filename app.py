@@ -203,11 +203,23 @@ app.layout = html.Div(children=[
 
         dcc.Markdown('Created by [Greg Schivley](https://twitter.com/gschivley) with help from [Ben Noll](https://twitter.com/BenNollWeather)'),
         dcc.Markdown('Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973658624)'),
-        dcc.Markdown('Find out more about the data, get the code, or help improve this figure on [GitHub](https://github.com/gschivley/climate-life-events)')
+        dcc.Markdown('Find out more about the data, get the code, or help improve this figure on [GitHub](https://github.com/gschivley/climate-life-events)'),
+        dcc.Markdown(id='test')
 ],
 className='container'
 # style={'width': '600px', 'margin-right': 'auto', 'margin-left': 'auto'}
 )
+
+# @app.callback(
+#     dash.dependencies.Output('test', 'children'),
+#     [dash.dependencies.Input('grandmother_birth', 'value')]
+# )
+# def grandma_value(grandmother_year):
+#     if grandmother_year is None:
+#         year = 0
+#     else:
+#         year = grandmother_year
+#     return '{}'.format(year)
 
 def takeClosest(myList, myNumber):
     """
@@ -240,12 +252,25 @@ def takeClosest(myList, myNumber):
     dash.dependencies.Input('units', 'value')])
 def update_figure(grandmother_year, mother_year, self_year, child_year, units):
 
+    # for val in [grandmother_year, mother_year, self_year, child_year]:
+    #     if val is None:
+    #         val = 0
+    def annotation_visible(year):
+        if year is None:
+            return False
+        #     visible = False
+        # else:
+        #     visible = True
+        # return visible
+
     def annotation_height(year):
         """
         Get the height for an annotation.
         Historical is easy - we have data for every year.
         After 2010 is harder - need to find the closest year to SSP values
         """
+        if year is None:
+            return 0
         if year < 2010:
             temp = hist.loc[hist['datetime'].dt.year == year, 'temp'].values[0]
         else:
@@ -324,6 +349,7 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
                 "ax": 0,
                 "showarrow": True,
                 'arrowhead': 2,
+                'visible': annotation_visible(grandmother_year)
             },
             {
                 "yanchor": "bottom",
@@ -337,6 +363,7 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
                 "ax": 0,
                 "showarrow": True,
                 'arrowhead': 2,
+                'visible': annotation_visible(mother_year)
             },
             {
                 "yanchor": "bottom",
