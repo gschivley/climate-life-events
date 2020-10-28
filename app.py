@@ -163,7 +163,7 @@ app.layout = html.Div(children=[
         dcc.Dropdown(
             id='child_birth',
             options=[{'label': i, 'value':i}
-                     for i in range(1940, currentYear+1)],
+                     for i in range(1940, currentYear+20)],
             value=2010
         )
     ],
