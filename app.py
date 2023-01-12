@@ -98,7 +98,7 @@ data_imperial = deepcopy(data)
 for t in data_imperial:
     t["y"] *= 9 / 5
 
-app = dash.Dash(__name__, static_folder='assets')
+app = dash.Dash(__name__)
 # app.scripts.config.serve_locally=True
 # app.css.config.serve_locally=True
 # app.config.supress_callback_exceptions=True
