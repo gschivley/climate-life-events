@@ -5,14 +5,14 @@ Inspired by [Sophie Lewis](https://twitter.com/aviandelights/status/870485031973
 
 #### Data from:
 
-© SSP Public Database (Version 1.1) https://tntcat.iiasa.ac.at/SspDb  
+© SSP Public Database (Version 2.0) https://tntcat.iiasa.ac.at/SspDb  
 NASA's GISS historical data https://data.giss.nasa.gov/gistemp/
 
 ## Important details
 
-NASA's GISS historical data uses a baseline of 1951-1980. The SSP scenarios, which get temperature results from the MAGICC model, use a baseline of 1980-1999. Since the baselines don't match I modify the SSP results to equal GISS in 2010.
+NASA's GISS historical data uses a baseline of 1951-1980. The SSP scenarios, which get temperature results from the MAGICC model, use a baseline of 1980-1999. Since the baselines don't match I modify the SSP results to equal GISS in 20200.
 
-Rather than showing all of the SSP climate scenarios (e.g. Baseline, 2.6, 3.4, etc) I combine them into *High*, *Med*, and *Low* groups. This helps make the figure cleaner and avoids the need to explain different end-point scenarios in terms of radiative forcing.
+Rather than showing all of the SSP climate scenarios (e.g. Baseline, 1.9, 2.6, 3.4, etc) I combine them into *High*, *Med*, and *Low* groups. This helps make the figure cleaner and avoids the need to explain different end-point scenarios in terms of radiative forcing.
 
 ## Contributing
 

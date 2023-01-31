@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
+from dash import dcc, html
 import pandas as pd
 from bisect import bisect_left
 from datetime import datetime
@@ -10,39 +8,44 @@ from copy import deepcopy
 
 currentYear = datetime.now().year
 
-fn = (
-    "https://raw.githubusercontent.com/gschivley/climate-life-events/master/iamc_db.csv"
-)
+fn = "https://raw.githubusercontent.com/gschivley/climate-life-events/data-update-2023/iamc_db.csv"
 df = pd.read_csv(fn)
 df["climate"] = df["Scenario"].str.split("-").str[-1]
 climates = df["climate"].unique()
-years = pd.to_datetime(df.columns[6:-1], yearfirst=True)
+years = pd.to_datetime(df.columns[7:-1], yearfirst=True)
 
-fn = "https://raw.githubusercontent.com/gschivley/climate-life-events/master/GISS_temps.csv"
+fn = "https://raw.githubusercontent.com/gschivley/climate-life-events/data-update-2023/annual_historical_temps.csv"
 hist = pd.read_csv(fn)
 hist["datetime"] = pd.to_datetime(hist["datetime"], yearfirst=True)
 
-# Adjust SSP temps to match GISS in 2010 so they share the same baseline
-year_2010 = pd.to_datetime("2010-01-01", yearfirst=True)
-GISS_2010 = hist.loc[hist["datetime"] == year_2010, "temp"].values[0]
-diff_2010 = df.loc[:, "2010"].values[0] - GISS_2010
-df.loc[:, "2005":"2100"] -= diff_2010
+# Adjust SSP temps to match GISS in 2020 so they share the same baseline
+year_2020 = pd.to_datetime("2020-01-01", yearfirst=True)
+GISS_2020 = hist.loc[hist["datetime"] == year_2020, "temp"].values[0]
+diff_2020 = df.loc[:, "2020"] - GISS_2020
+df.loc[:, "2020":"2100"] = df.loc[:, "2020":"2100"].subtract(diff_2020, axis=0)
 
 # Colors from tab10 palette
 colors = ["#d62728", "#ff7f0e", "#1f77b4"][::-1]
 
-scenario_map = {"Baseline": "High", "60": "High", "45": "Mid", "34": "Mid", "26": "Low"}
+scenario_map = {
+    "Baseline": "High",
+    "60": "High",
+    "45": "Mid",
+    "34": "Mid",
+    "26": "Low",
+    "19": "Low",
+}
 
 df["name"] = df["climate"].map(scenario_map)
 
 data = []
 trace = {
     "x": hist.loc[
-        (hist["datetime"].dt.year <= 2010) & (hist["datetime"].dt.year > 1879),
+        (hist["datetime"].dt.year <= 2020) & (hist["datetime"].dt.year > 1879),
         "datetime",
     ],
     "y": hist.loc[
-        (hist["datetime"].dt.year <= 2010) & (hist["datetime"].dt.year > 1879), "temp"
+        (hist["datetime"].dt.year <= 2020) & (hist["datetime"].dt.year > 1879), "temp"
     ],
     "hoverinfo": "text",  #'text+x',
     "type": "scatter",
@@ -55,7 +58,7 @@ data.append(trace)
 for idx, climate in enumerate(["Low", "Mid", "High"]):
     trace = {
         "x": years,
-        "y": df.loc[df["name"] == climate, "2010":"2100"].mean(),
+        "y": df.loc[df["name"] == climate, "2020":"2100"].mean(),
         "hoverinfo": "text",  #'text+x',
         "showlegend": False,
         "type": "scatter",
@@ -69,7 +72,7 @@ for idx, climate in enumerate(["Low", "Mid", "High"]):
 for idx, climate in enumerate(["Low", "Mid", "High"]):
     trace = {
         "x": years,
-        "y": df.loc[df["name"] == climate, "2010":"2100"].min(),
+        "y": df.loc[df["name"] == climate, "2020":"2100"].min(),
         "hoverinfo": "text",  #'text+x',
         "showlegend": False,
         "type": "scatter",
@@ -81,7 +84,7 @@ for idx, climate in enumerate(["Low", "Mid", "High"]):
 
     trace = {
         "x": years,
-        "y": df.loc[df["name"] == climate, "2010":"2100"].max(),
+        "y": df.loc[df["name"] == climate, "2020":"2100"].max(),
         "hoverinfo": "text",  #'text+x',
         "type": "scatter",
         "fill": "tonexty",
@@ -296,9 +299,9 @@ def update_figure(grandmother_year, mother_year, self_year, child_year, units):
         """
         Get the height for an annotation.
         Historical is easy - we have data for every year.
-        After 2010 is harder - need to find the closest year to SSP values
+        After 2020 is harder - need to find the closest year to SSP values
         """
-        if year < 2010:
+        if year < 2020:
             temp = hist.loc[hist["datetime"].dt.year == year, "temp"].values[0]
         else:
             close_year = str(takeClosest(years.year, year))
